@@ -1,2 +1,3 @@
 # rest-api
-A mock RESTful API for inde
+
+A mock RESTful API for independent study
