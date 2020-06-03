@@ -73,4 +73,10 @@ var routes = Routes{
 		"/data-dump",
 		HandleDump,
 	},
+	Route{
+		"Swagger",
+		"GET",
+		"/docs",
+		Swagger,
+	},
 }
