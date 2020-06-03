@@ -15,6 +15,7 @@ type Route struct {
 
 type Routes []Route
 
+// Creates Route for all endpoints in API.
 func NewRouter() *mux.Router {
 	router := mux.NewRouter()
 	for _, route := range routes {
@@ -28,13 +29,7 @@ func NewRouter() *mux.Router {
 	return router
 }
 
-/*
-	r.HandleFunc("/", HandleMain)
-	r.HandleFunc("/index", HandleIndex)
-	r.HandleFunc("/user/{id}", HandleUser)
-	r.HandleFunc("/data-dump", HandleDump)
-*/
-
+// Defines the Routes. If HTTP type is not directly define, default to "GET"
 var routes = Routes{
 
 	Route{
