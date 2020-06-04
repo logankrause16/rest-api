@@ -39,6 +39,8 @@ func NewRouter() *mux.Router {
 			Name(route.Name).
 			Handler(route.HandlerFunc)
 	}
+	sh := http.StripPrefix("/docs/", http.FileServer(http.Dir("./swaggerui/")))
+	router.PathPrefix("/docs/").Handler(sh)
 
 	return router
 }
@@ -72,11 +74,5 @@ var routes = Routes{
 		"GET",
 		"/data-dump",
 		HandleDump,
-	},
-	Route{
-		"Swagger",
-		"GET",
-		"/docs",
-		Swagger,
 	},
 }

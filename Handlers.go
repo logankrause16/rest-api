@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -33,18 +32,10 @@ func HandleDump(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("The HTTP request failed with error %s\n", err)
 	} else {
 		data, _ := ioutil.ReadAll(response.Body)
-		fmt.Fprintln(w, data)
+		fmt.Fprintln(w, string(data))
 	}
 }
 
 func Swagger(w http.ResponseWriter, r *http.Request) {
-
-	body, err := ioutil.ReadFile("./swagger.json")
-	bytes := []byte(body)
-	if err != nil {
-		fmt.Print(err)
-	} else {
-		json.Unmarshal(bytes, &body)
-	}
-	fmt.Fprintln(w, string(bytes))
+	http.FileServer(http.Dir("./swaggerui/index.html"))
 }
