@@ -51,21 +51,21 @@ var routes = Routes{
 	Route{
 		"HandleMain",
 		"GET",
-		"/",
+		"/v2/data/",
 		HandleMain,
 	},
 
 	Route{
 		"HandleIndex",
 		"GET",
-		"/index",
+		"/v2/data/index",
 		HandleIndex,
 	},
 
 	Route{
 		"HandleUser",
 		"GET",
-		"/user/{id}",
+		"/v2/data/userId/{id}",
 		HandleUser,
 	},
 

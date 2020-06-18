@@ -4,8 +4,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/sirupsen/logrus"
+	easy "github.com/t-tomalak/logrus-easy-formatter"
 )
 
 // Handles "/"
@@ -28,9 +31,18 @@ func HandleUser(w http.ResponseWriter, r *http.Request) {
 // Handles "/data-dump"
 func HandleDump(w http.ResponseWriter, r *http.Request) {
 	response, err := http.Get("https://jsonplaceholder.typicode.com/todos/1")
+	_, err = os.Open("filename.txt")
 	if err != nil {
-		fmt.Printf("The HTTP request failed with error %s\n", err)
-	} else {
+		logger := &logrus.Logger{
+			Out:   os.Stdout,
+			Level: logrus.DebugLevel,
+			Formatter: &easy.Formatter{
+				TimestampFormat: "2006-01-02 15:04:05",
+				LogFormat:       "[ERROR]: %time% - %msg% \n",
+			},
+		}
+		logger.Println("Error Encountered:", stackTrack, err, http.StatusConflict)
+
 		data, _ := ioutil.ReadAll(response.Body)
 		fmt.Fprintln(w, string(data))
 	}
